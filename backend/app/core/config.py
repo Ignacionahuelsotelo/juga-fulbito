@@ -1,4 +1,6 @@
+import json
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -18,6 +20,18 @@ class Settings(BaseSettings):
 
     # CORS
     CORS_ORIGINS: list[str] = ["http://localhost:3000"]
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v):
+        if isinstance(v, str):
+            try:
+                parsed = json.loads(v)
+                return parsed if isinstance(parsed, list) else [v]
+            except json.JSONDecodeError:
+                # Support comma-separated: "https://a.com,https://b.com"
+                return [origin.strip() for origin in v.split(",")]
+        return v
 
     # File uploads
     MAX_AVATAR_SIZE_MB: int = 5

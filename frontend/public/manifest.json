@@ -1,0 +1,10 @@
+{
+  "name": "Juga Fulbito",
+  "short_name": "Fulbito",
+  "description": "Organiza partidos de futbol con tus amigos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "icons": []
+}
