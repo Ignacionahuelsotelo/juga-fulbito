@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: jugafulbito-api
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash render_start.sh
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: AI_MODEL_NAME
+        value: gpt-4o-mini
+      - key: PYTHON_VERSION
+        value: "3.12.0"
